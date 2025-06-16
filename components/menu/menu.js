@@ -1,4 +1,4 @@
-import { menuElemanlari } from "./../../resources.js";
+import { menuElemanlari } from './../../resources.js';
 
 /*
 Adım 1: MenuBuilder component fonksiyonu yazmak
@@ -28,3 +28,47 @@ MenuBuilder fonksiyonu ve resouces.js dosyasından gelen menuElemanlari arrayini
 Not 1: İlk 3 adım MenuBuilder içinde yapılmalı.
 Not 2: MenuBuilder fonksiyonunda oluşturduklarınızı return etmeyi unutmayın.
 */
+
+// Adım 1: MenuBuilder component fonksiyonu
+
+export function MenuBuilder(menuItems) {
+  const listItems = menuItems.map((item) => `<li>${item}</li>`).join('');
+
+  const menuHTML = `
+    <div class="menu">
+      <ul>
+        ${listItems}
+      </ul>
+    </div>
+  `;
+}
+
+// Expand butonuna tıklandığında, haberin tamamını gösteren bir modal açılmalı.
+function addEeventListener() {
+  const expandButton = articleElement.querySelector('.expandButton');
+  expandButton.addEventListener('click', function () {
+    articleElement.classList.toggle('isOpen');
+  });
+}
+
+// Menü başlatmak için.
+function initializeMenu() {
+  const headerElement = document.querySelector('.header');
+  const menuHTML = MenuBuilder(menuElemanlari);
+  headerElement.insertAdjacentHTML('beforeend', menuHTML);
+
+  const menuButton = document.querySelector('.menu-button');
+  const menuElement = document.querySelector('.menu');
+
+  // Adım 3: Menu toggle işlevselliği
+  menuButton.addEventListener('click', function () {
+    menuElement.classList.toggle('isOpen');
+  });
+
+  // Menü dışına tıklandığında menüyü kapat
+  menuButton.addEventListener('click', function (event) {
+    if (!menuElement.classList.contains(event.target)) {
+      menuElement.classList.remove('isOpen');
+    }
+  });
+}
