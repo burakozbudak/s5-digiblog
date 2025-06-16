@@ -1,12 +1,12 @@
 // Haberleri üretmek için aşağıdaki newsData objesini kullanacağız. Önce inceleyin.
-import { newsData } from "./../../resources.js";
+import { newsData } from './../../resources.js';
 
 const sampleNewsItem = {
-  baslik: "örnek başlık",
-  tarih: "11 Kasım 2026",
-  ilkParagraf: "Örnek paragraf 1",
-  ikinciParagraf: "Örnek paragraf 2",
-  ucuncuParagraf: "Örnek paragraf 3",
+  baslik: 'örnek başlık',
+  tarih: '11 Kasım 2026',
+  ilkParagraf: 'Örnek paragraf 1',
+  ikinciParagraf: 'Örnek paragraf 2',
+  ucuncuParagraf: 'Örnek paragraf 3',
 };
 
 /*
@@ -37,3 +37,44 @@ newsData'nın her bir elemanını NewsBuilder ile kullanmak için bir döngü ya
 Not 1: İlk 2 adım NewsBuilder içinde yapılmalı.
 Not 2: NewsBuilder fonksiyonunda oluşturduklarınızı return etmeyi unutmayın.
 */
+// Adım 1 ve 2: NewsBuilder component fonksiyonu
+
+function NewsBuilder(newsItems) {
+  const articleHTML = newsItems.map(
+    (item) => `
+    <div class="article">
+      <h2>${item.baslik}</h2>
+      <p>${item.tarih}</p>
+      <p>${item.ilkParagraf}</p>
+      <p>${item.ikinciParagraf}</p>
+      <p>${item.ucuncuParagraf}</p>
+
+      <button class="expandButton">Devamını Oku</button>
+    </div>
+  `
+  );
+  return articleHTML;
+}
+
+// Expand butonuna tıklandığında, haberin tamamını gösteren bir modal açılmalı.
+function addEeventListener() {
+  const expandButton = articleElement.querySelector('.expandButton');
+  expandButton.addEventListener('click', function () {
+    articleElement.classList.toggle('isOpen');
+  });
+}
+
+// Adım 3: newsData'yı kullanarak haberleri oluşturma
+function initializeNews() {
+  const articleListElement = document.querySelector('.articleList');
+  //loading göstergesini kaldır
+  articleElement.innerHTML = '';
+  // newsData'nın her bir elemanını NewsBuilder ile kullanarak içerik oluşturma
+  newsData.forEach((newsItem) => {
+    const articleHTML = NewsBuilder([newsItem]);
+    articleListElement.insertAdjacentHTML('beforeend', articleHTML);
+
+    const articleElement = articleListElement.lastElementChild;
+    addEeventListener(lastArticle);
+  });
+}

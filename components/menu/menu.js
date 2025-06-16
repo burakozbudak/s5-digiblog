@@ -43,14 +43,6 @@ export function MenuBuilder(menuItems) {
   `;
 }
 
-// Expand butonuna tıklandığında, haberin tamamını gösteren bir modal açılmalı.
-function addEeventListener() {
-  const expandButton = articleElement.querySelector('.expandButton');
-  expandButton.addEventListener('click', function () {
-    articleElement.classList.toggle('isOpen');
-  });
-}
-
 // Menü başlatmak için.
 function initializeMenu() {
   const headerElement = document.querySelector('.header');
