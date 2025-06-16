@@ -30,22 +30,21 @@ Not 2: MenuBuilder fonksiyonunda oluşturduklarınızı return etmeyi unutmayın
 */
 
 // Adım 1: MenuBuilder component fonksiyonu
-function MenuBuilder(menuElemanlari) {
-  const listItems = menuElemanlari.map((item) => `<li>${item}</li>`).join('');
-
+export function MenuBuilder(menuItems) {
+  const listItems = menuItems.map((item) => `<li>${item}</li>`).join('');
   const menuHTML = `
-                <div class="menu">
-                    <ul>
-                        ${listItems}
-                    </ul>
-                </div>
-            `;
+    <div class="menu">
+        <ul>
+         ${menuItems.map((item) => `<li>${item}</li>`).join('')}
+        </ul>
+    </div>
+  `;
 
   return menuHTML;
 }
 
 // Menü başlatmak için.
-function initializeMenu() {
+export function initializeMenu() {
   const headerElement = document.querySelector('.header');
   const menuHTML = MenuBuilder(menuElemanlari);
   headerElement.insertAdjacentHTML('beforeend', menuHTML);
@@ -54,22 +53,21 @@ function initializeMenu() {
   const menuElement = document.querySelector('.menu');
 
   // Adım 3: Menu toggle işlevselliği
-  menuButton.addEventListener('click', function () {
+  menuButton.addEventListener('click', function (e) {
+    e.stopPropagation(); // Menü dışına tıklanmasını engelle
     menuElement.classList.toggle('isOpen');
   });
 
   // Menü dışına tıklandığında menüyü kapat
-  menuButton.addEventListener('click', function (event) {
-    if (!menuElement.classList.contains(event.target)) {
+  menuButton.addEventListener('click', function (e) {
+    if (!menuElement.classList.contains(e.target) && e.target !== menuButton) {
       menuElement.classList.remove('isOpen');
     }
   });
 }
 // Sayfa yüklendiğinde her şeyi başlat
-document.addEventListener('DOMContentLoaded', function () {
+if (document.readyState === 'complete') {
   initializeMenu();
-  // Sonra haberleri yükle (küçük bir gecikme ile gerçekçi loading efekti)
-  setTimeout(() => {
-    initializeNews();
-  }, 800);
-});
+} else {
+  document.addEventListener('DOMContentLoaded', initializeMenu);
+}

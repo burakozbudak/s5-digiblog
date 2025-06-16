@@ -39,33 +39,34 @@ Not 2: NewsBuilder fonksiyonunda oluşturduklarınızı return etmeyi unutmayın
 */
 // Adım 1 ve 2: NewsBuilder component fonksiyonu
 
-function NewsBuilder(newsItems) {
-  const articleHTML = newsItems.map(
-    (item) => `
+export function NewsBuilder(sampleNewsItem) {
+  return `
     <div class="article">
-      <h2>${item.baslik}</h2>
-      <p>${item.tarih}</p>
-      <p>${item.ilkParagraf}</p>
-      <p>${item.ikinciParagraf}</p>
-      <p>${item.ucuncuParagraf}</p>
+      <h2>${sampleNewsItem.baslik}</h2>
+      <p>${sampleNewsItem.tarih}</p>
+      <p>${sampleNewsItem.ilkParagraf}</p>
+      <p>${sampleNewsItem.ikinciParagraf}</p>
+      <p>${sampleNewsItem.ucuncuParagraf}</p>
 
       <button class="expandButton">Devamını Oku</button>
     </div>
-  `
-  );
-  return articleHTML;
+  `;
 }
 
 // Expand butonuna tıklandığında, haberin tamamını gösteren bir modal açılmalı.
 function addEeventListener() {
   const expandButton = articleElement.querySelector('.expandButton');
-  expandButton.addEventListener('click', function () {
-    articleElement.classList.toggle('isOpen');
-  });
+  expandButton.addEventListener(
+    'click',
+    function () {
+      articleElement.classList.toggle('isOpen');
+    },
+    2000
+  );
 }
 
 // Adım 3: newsData'yı kullanarak haberleri oluşturma
-function initializeNews() {
+export function initializeNews() {
   const articleListElement = document.querySelector('.articleList');
   //loading göstergesini kaldır
   articleElement.innerHTML = '';
