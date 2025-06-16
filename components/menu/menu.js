@@ -30,17 +30,18 @@ Not 2: MenuBuilder fonksiyonunda oluşturduklarınızı return etmeyi unutmayın
 */
 
 // Adım 1: MenuBuilder component fonksiyonu
-
-export function MenuBuilder(menuItems) {
-  const listItems = menuItems.map((item) => `<li>${item}</li>`).join('');
+function MenuBuilder(menuElemanlari) {
+  const listItems = menuElemanlari.map((item) => `<li>${item}</li>`).join('');
 
   const menuHTML = `
-    <div class="menu">
-      <ul>
-        ${listItems}
-      </ul>
-    </div>
-  `;
+                <div class="menu">
+                    <ul>
+                        ${listItems}
+                    </ul>
+                </div>
+            `;
+
+  return menuHTML;
 }
 
 // Menü başlatmak için.
@@ -64,3 +65,11 @@ function initializeMenu() {
     }
   });
 }
+// Sayfa yüklendiğinde her şeyi başlat
+document.addEventListener('DOMContentLoaded', function () {
+  initializeMenu();
+  // Sonra haberleri yükle (küçük bir gecikme ile gerçekçi loading efekti)
+  setTimeout(() => {
+    initializeNews();
+  }, 800);
+});
